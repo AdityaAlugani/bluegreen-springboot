@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build bluegreenclinch:v1 .
+      run: docker build -t bluegreenclinch:v1 .
 
     - name: Push the image to ECR
       run: AWS_ACCESS_KEY_ID=AKIAU6OW66OJN3TCINOW \
