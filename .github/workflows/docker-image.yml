@@ -13,4 +13,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . bluegreenclinch:v1
+
+    - name: Push the image to ECR
+      run: AWS_ACCESS_KEY_ID=AKIAU6OW66OJN3TCINOW \
+          AWS_SECRET_ACCESS_KEY=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 \
+          AWS_REGION=ap-south-1 \
+          aws ecr get-login-password --region $AWS_REGION \
+          | docker login --username AWS --password-stdin 340290106258.dkr.ecr.$AWS_REGION.amazonaws.com
+          
+    - name: Tag the image
+      run: docker tag bluegreenclinch:v1 123456789012.dkr.ecr.ap-south-1.amazonaws.com/bluegreen-app:latest
